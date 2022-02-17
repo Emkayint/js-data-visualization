@@ -66,6 +66,11 @@ function csvToSeries(text){
 
 function renderChart(series){
     JSC.Chart("mychart", {
+        title_label_text: "Life Expectancy in the USA",
+        annontations:[{
+            label_tex: 'Source: National Center for Health Statistics',
+            positipn: 'bottom left'
+        }],
         series: series
-    })
+    });
 }
