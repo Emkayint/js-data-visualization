@@ -48,8 +48,14 @@ function csvToSeries(text){
     let dataAsJson = JSC.csv2Json(text);
     let male = [], female = [];
     dataAsJson.forEach(function(row){
-        
-    })
-    console.log(dataAsJson);
+        if ( row.race === "All Races" ){
+            if(row.sex === "Male"){
+                male.push({x: row.year, y: row[lifeExp]});
+            } else if (row.sex === "Female"){
+                female.push([male, female]);
+            }
+        }
+    });
+    console.log([male, female]);
 }
     
