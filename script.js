@@ -37,7 +37,8 @@ fetch('https://data.cdc.gov/resource/w9j2-ggv5.csv')
         return response.text();
     })
     .then(function(text){
-        csvToSeries(text);
+        let series = csvToSeries(text);
+        renderChart(series);
     })
     .catch(function(error){
         console.log(error);
@@ -52,10 +53,19 @@ function csvToSeries(text){
             if(row.sex === "Male"){
                 male.push({x: row.year, y: row[lifeExp]});
             } else if (row.sex === "Female"){
-                female.push([male, female]);
+                female.push({x: row.year, y: row[lifeExp]});
             }
         }
     });
-    console.log([male, female]);
+    return [
+        {name: 'Male', points: male},
+        {name: 'Female', points: female}
+    ]
 }
-    
+
+
+function renderChart(series){
+    JSC.Chart("mychart", {
+        series: series
+    })
+}
